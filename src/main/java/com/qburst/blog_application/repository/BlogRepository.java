@@ -1,6 +1,8 @@
 package com.qburst.blog_application.repository;
 
 import com.qburst.blog_application.entity.BlogEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,17 +10,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BlogRepository extends JpaRepository<BlogEntity, Integer> {
+public interface BlogRepository extends JpaRepository<BlogEntity, Long> {
 
-    // Find a blog by its SEO-friendly slug
     Optional<BlogEntity> findBySlug(String slug);
 
-    // Find all published blogs, ordered by newest first
-    List<BlogEntity> findByIsPublishedTrueOrderByCreatedAtDesc();
+    Optional<BlogEntity> findBySlugAndAuthorId(String slug, Long authorId);
 
-    // Find blogs by a specific category
+    Page<BlogEntity> findByPublishedTrueOrderByCreatedAtDesc(Pageable pageable);
+
     List<BlogEntity> findByCategoryId(Long categoryId);
 
-    // Search blogs by title (case-insensitive)
     List<BlogEntity> findByTitleContainingIgnoreCase(String keyword);
+
+    boolean existsBySlug(String slug);
 }

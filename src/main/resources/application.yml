@@ -32,6 +32,7 @@ logging:
       springframework:
         security: DEBUG
 
+#SMTP mail configuration
 mail:
   host: smtp.mailtrap.io # or smtp.gmail.com
   port: 2525 # 587 for Gmail
@@ -44,6 +45,7 @@ mail:
         starttls:
           enable: true
 
+# Actuator configurations
 management:
   server:
     port: 8084
@@ -64,6 +66,11 @@ management:
       probes:
         # CRITICAL: Enables /health/liveness and /health/readiness for K8s
         enabled: true
+      group:
+        custom-group:
+          # http://localhost:8084/manage/health/custom-group
+          include: db, diskSpace
+          show-details: always
 
     env:
       # Mask sensitive passwords/keys in the /env endpoint

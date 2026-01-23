@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", ignore = false)
     @Mapping(target = "description", ignore = false)
-
     CategoryEntity toEntity(Category category);
 
     Category toResponse(CategoryEntity categoryEntity);

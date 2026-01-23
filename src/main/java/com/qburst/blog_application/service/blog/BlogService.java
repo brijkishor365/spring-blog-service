@@ -1,27 +1,29 @@
 package com.qburst.blog_application.service.blog;
 
-import com.qburst.blog_application.dto.request.blog.BlogAddRequest;
+import com.qburst.blog_application.dto.request.blog.BlogRequest;
 import com.qburst.blog_application.dto.response.blog.BlogResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface BlogService {
 
-    BlogResponse createBlog(BlogAddRequest blogAddRequest);
+    BlogResponse createBlog(BlogRequest request);
 
-    BlogService updateBlog(Long blogId, BlogAddRequest blogAddRequest);
+    BlogResponse updateBlog(String blogId, BlogRequest request);
 
-    void deleteBlog(Long blogId);
+    @Transactional
+    void deleteBlogBySlug(String slug);
 
-    BlogService getBlogByID(Long blogId);
+    BlogResponse getBlogById(Long blogId);
 
-    Page<BlogService> getAllBlogs(Pageable pageable);
+    Page<BlogResponse> getAllBlogs(Pageable pageable);
 
-    List<BlogService> searchBlog(String keywords);
+    List<BlogResponse> searchBlog(String keywords);
 
-    List<BlogService> getBlogByCategory(Long categoryId);
+    List<BlogResponse> getBlogByCategory(Long categoryId);
 
-    List<BlogService> getBlogByUser(Long userId);
+    List<BlogResponse> getBlogByUser(Long userId);
 }

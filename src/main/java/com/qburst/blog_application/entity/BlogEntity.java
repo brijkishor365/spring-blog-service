@@ -1,8 +1,10 @@
 package com.qburst.blog_application.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -16,6 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@SoftDelete(columnName = "is_deleted")
 public class BlogEntity {
 
     @Id
@@ -35,7 +38,8 @@ public class BlogEntity {
 
     private String imageUrl;
 
-    private boolean isPublished;
+    @Column(name = "is_published")
+    private Boolean published;
 
     private long viewCount = 0;
 
@@ -58,4 +62,6 @@ public class BlogEntity {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    private LocalDateTime deletedAt;
 }

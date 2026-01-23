@@ -164,6 +164,6 @@ public class JwtFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         // Exclude actuator paths from JWT validation logic
-        return path.startsWith("/actuator");
+        return path.startsWith("/actuator") || path.startsWith("/manage");
     }
 }
