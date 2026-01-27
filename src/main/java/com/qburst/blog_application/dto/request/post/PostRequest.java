@@ -1,4 +1,4 @@
-package com.qburst.blog_application.dto.request.blog;
+package com.qburst.blog_application.dto.request.post;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
-public record BlogRequest(
+public record PostRequest(
 
         @JsonProperty("title")
         @NotBlank(message = "Title is required")
@@ -39,7 +39,7 @@ public record BlogRequest(
         @JsonProperty("imageUrl")
         String imageUrl
 ) {
-    public BlogRequest {
+    public PostRequest {
         if (tags == null) {
             tags = Set.of();
         }

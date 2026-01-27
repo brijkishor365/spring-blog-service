@@ -1,11 +1,11 @@
-package com.qburst.blog_application.dto.response.blog;
+package com.qburst.blog_application.dto.response.post;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public record BlogResponse(
+public record PostResponse(
 
         @JsonProperty("id")
         Long id,
@@ -38,7 +38,7 @@ public record BlogResponse(
         Long viewCount,
 
         @JsonProperty("published")
-        Boolean published,
+        Boolean isPublished,
 
         @JsonProperty("created_at")
         LocalDateTime createdAt,

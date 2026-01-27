@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,9 +28,10 @@ public class CategoryEntity {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    // Relationship back to blogs (Optional)
+    // Relationship back to posts (Optional)
     @OneToMany(mappedBy = "category")
-    private List<BlogEntity> blogs;
+    @Builder.Default // Prevents the list from being null when using the Builder
+    private List<PostEntity> posts = new ArrayList<>();
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)

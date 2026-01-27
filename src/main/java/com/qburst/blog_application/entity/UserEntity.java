@@ -1,16 +1,17 @@
 package com.qburst.blog_application.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.CascadeType;
+import lombok.*;
 import org.hibernate.annotations.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,21 +30,18 @@ public class UserEntity {
     private String username;
 
     @Column(nullable = false)
-    private String password; // Should be stored as a BCrypt hash
+    private String password;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String roles; // e.g., "ROLE_USER,ROLE_ADMIN"
+    private String roles;
 
     private String firstname;
 
     private String lastname;
 
     private String profileImageUrl;
-
-    @Column(insertable=false, updatable=false)
-    private boolean active = true;
 
     @Column(columnDefinition = "int default 0", nullable = false)
     private int failedAttempt = 0;
@@ -64,6 +62,11 @@ public class UserEntity {
     @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    // Add this inside your UserEntity class
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default // Required because we are using Lombok @Builder
+    private List<PostEntity> posts = new ArrayList<>();
 
     @Override
     public String toString() {

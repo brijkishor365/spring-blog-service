@@ -12,7 +12,6 @@ public interface UserMapper {
     // Map Request Record -> Entity
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "password", ignore = true) // We encode this manually in Service
-    @Mapping(target = "active", constant = "true")
     UserEntity toEntity(UserAddRequest request);
 
     // Map Entity -> Response Record
